@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<title>Sneaker Shop - Jordan & More</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+  body {font-size:16px;}
+  .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer; transition: 0.3s; border-radius: 8px;}
+  .w3-half img:hover{opacity:1}
+  img { max-width: 100%; height: auto; }
+  
+  /* Style cho khung sản phẩm */
+  .product-card { margin-bottom: 24px; padding: 10px; border: 1px solid #eee; border-radius: 8px; text-align: center; }
+  .price { color: #f44336; font-weight: bold; font-size: 1.2em; margin: 8px 0; }
+  
+  /* Giỏ hàng nổi */
+  #cart-sidebar { width: 350px; right: 0; display: none; position: fixed; height: 100%; z-index: 5; background: white; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+
+  .responsive-container {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 20px 0; border-radius: 12px; background: #000;
+  }
+  .responsive-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+</style>
+</head>
+<body>
+
+<nav class="w3-sidebar w3-black w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Đóng Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>SNEAKER<br>SHOP</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-red">Trang chủ</a> 
+    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-red">Bộ sưu tập</a> 
+    <a href="javascript:void(0)" onclick="toggleCart()" class="w3-bar-item w3-button w3-hover-red"><i class="fa fa-shopping-cart"></i> Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-red">Liên hệ</a>
+  </div>
+</nav>
+
+
+<div id="cart-sidebar" class="w3-animate-right">
+    <div class="w3-container w3-padding-32">
+        <span onclick="toggleCart()" class="w3-button w3-display-topright w3-large">&times;</span>
+        <h3>Giỏ hàng của bạn</h3>
+        <hr>
+        <div id="cart-items" class="w3-container">
+            <p class="w3-text-grey">Giỏ hàng trống</p>
+        </div>
+        <hr>
+        <div class="w3-container">
+            <h5>Tổng cộng: <b id="cart-total">0đ</b></h5>
+            <button class="w3-button w3-block w3-black w3-margin-top" onclick="checkout()">THANH TOÁN</button>
+        </div>
+    </div>
+</div>
+
+<header class="w3-container w3-top w3-hide-large w3-black w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-black w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Sneaker Shop</span>
+</header>
+
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>New Arrivals</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Bộ sưu tập 2026.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-row-padding">
+    <div class="w3-half">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" onclick="onClick(this)" alt="Nike Air Max Red">
+            <h4>Nike Air Max Red</h4>
+            <p class="price">2.500.000đ</p>
+            <button class="w3-button w3-red w3-round" onclick="addToCart('Nike Air Max Red', 2500000)">Thêm vào giỏ</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600" onclick="onClick(this)" alt="Streetwear Style">
+            <h4>Streetwear Style</h4>
+            <p class="price">1.850.000đ</p>
+            <button class="w3-button w3-red w3-round" onclick="addToCart('Streetwear Style', 1850000)">Thêm vào giỏ</button>
+        </div>
+    </div>
+    <div class="w3-half">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600" onclick="onClick(this)" alt="Nike Zoom Green">
+            <h4>Nike Zoom Green</h4>
+            <p class="price">3.200.000đ</p>
+            <button class="w3-button w3-red w3-round" onclick="addToCart('Nike Zoom Green', 3200000)">Thêm vào giỏ</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600" onclick="onClick(this)" alt="Casual Brown Shoes">
+            <h4>Casual Brown Shoes</h4>
+            <p class="price">1.200.000đ</p>
+            <button class="w3-button w3-red w3-round" onclick="addToCart('Casual Brown Shoes', 1200000)">Thêm vào giỏ</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="w3-container" style="margin-top:50px">
+    <h2 class="w3-xlarge w3-text-red"><b>Review Hot: Jordan 1 Travis Scott</b></h2>
+    <div class="responsive-container">
+      <iframe src="https://www.youtube.com/embed/014pTNQLp-U" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="w3-container" id="contact" style="margin-top:75px;margin-bottom:50px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Liên hệ.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p><b>Địa chỉ:</b> Tòa nhà Innovation, Công viên phần mềm Quang Trung, Quận 12, TP.HCM</p>
+    <form action="#">
+      <div class="w3-section">
+        <label>Tên của bạn</label>
+        <input class="w3-input w3-border" type="text" required>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red">Gửi yêu cầu ngay</button>
+    </form>  
+  </div>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    updateCartUI();
+    // Tự động mở giỏ hàng khi thêm
+    document.getElementById("cart-sidebar").style.display = "block";
+}
+
+function updateCartUI() {
+    const cartItems = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const cartTotal = document.getElementById("cart-total");
+    
+    cartCount.innerText = cart.length;
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="w3-text-grey">Giỏ hàng trống</p>';
+        cartTotal.innerText = "0đ";
+        return;
+    }
+
+    let html = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+        html += `<div class="w3-padding-small">${item.name} - <b>${item.price.toLocaleString()}đ</b> 
+                 <span onclick="removeItem(${index})" class="w3-right w3-text-red" style="cursor:pointer">&times;</span></div>`;
+        total += item.price;
+    });
+    cartItems.innerHTML = html;
+    cartTotal.innerText = total.toLocaleString() + "đ";
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+function toggleCart() {
+    const cartS = document.getElementById("cart-sidebar");
+    cartS.style.display = (cartS.style.display === "block") ? "none" : "block";
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("Giỏ hàng đang trống!");
+    } else {
+        alert("Cảm ơn bạn đã mua hàng! Đơn hàng trị giá " + document.getElementById("cart-total").innerText + " đang được xử lý.");
+        cart = [];
+        updateCartUI();
+        toggleCart();
+    }
+}
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  document.getElementById("caption").innerHTML = element.alt;
+}
+</script>
+<div class="responsive-container">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.444053266185!2d106.62563911526078!3d10.853793092268715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b6c59ba4c97%3A0x535e784068f1558b!2zVMOyYSBuaMOgIElubm92YXRpb24!5e0!3m2!1svi!2s!4v1689000000000!5m2!1svi!2s" 
+    style="border:0; pointer-events: none;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+<script src="https://uhchat.net/code.php?f=1dc826"></script>
+</body>
+</html>
